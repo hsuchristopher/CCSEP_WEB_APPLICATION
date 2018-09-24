@@ -1,1 +1,4 @@
-# CCSEP_WEB_APPLICATION
+# **CCSEP_WEB_APPLICATION**
+--
+**Repository for the 2018 CCSEP Assignment - Tasked to build a web application susceptible to Security Vulnerabilities recognised by OWASP.**
+--
