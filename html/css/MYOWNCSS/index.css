@@ -83,7 +83,11 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul p {
-    color: #fff;
+    color: whitesmoke;
+    text-decoration: underline;
+    text-decoration-color: white;
+    font-size: 25px;
+    font-weight: 900;
     padding: 10px;
 }
 
@@ -140,4 +144,19 @@ ul ul a {
     background-image: url("../../images/touka.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+/* BUTTON COLOURING */
+.btn{
+    background-color: #27c2a5;
+    color: #fff;
+    font-size: 19px;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom: 4px solid #219882;
+}
+
+.btn:hover, .btn:focus{
+    background-color: #25a890 !important;
+    border-bottom: 4px solid #25a890 !important;
 }
