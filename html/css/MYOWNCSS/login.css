@@ -104,10 +104,10 @@ body{
 }
 
 /* FORGOT PASSWORD */
-.forgot{
+.noaccount{
     padding: 5px 0 25px;
 }
 
-.forgot a{
+.noaccount a{
     color: #c2fbfe
 }

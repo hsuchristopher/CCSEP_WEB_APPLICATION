@@ -1,0 +1,27 @@
+/********************************************************************************
+* Author: Christopher Chang                                                     *
+* Date: Thursday 27th September 2018                                             *
+* Purpose: CSS Stylesheet for the signup page                                     *
+********************************************************************************/
+
+/* NEW BACKGROUND IMAGE */
+body{
+    font-family: 'Roboto', sans-serif;
+    background: url(../../images/levi.jpg) no-repeat center center fixed;
+    background-size: cover;
+};
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: 80px 200px;
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+  }
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }

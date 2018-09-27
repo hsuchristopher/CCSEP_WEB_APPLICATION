@@ -105,8 +105,9 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Login</button>
                             </form>
-                            <div class="col-12 forgot">
-                                <a href="#">Forgot Password?</a>
+                            <!-- Allow People to Sign up -->
+                            <div class="col-12 noaccount">
+                                <a href="signup.php">Don't have an account? Sign up now</a>
                             </div>
                         </div> 
                     </div>

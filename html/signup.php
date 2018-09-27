@@ -1,42 +1,47 @@
 <!--
 Author: Christopher Chang
 Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, the homepage given when the web application starts
+Purpose: CCSEP Assignment 2018, Signup form to add users
 -->
 
-<!DOCTYPE html>
 <?php
-    session_start();
+    // Only call start session if there is not a session already
+    if(session_status() == PHP_SESSION_NONE)
+    {
+        session_start();
+    }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>OH MY GOD!!</title>
+        <title>Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css"/>
         <!-- My Own CSS -->
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/signup.css">
         <!-- Bootstrap Scripts> -->
         <script src="./js/jquery-3.3.1.min.js"></script>
         <script src="./js/popper.min.js"></script>
         <script src="./js/bootstrap.min.js"></script>
+        <!-- FontAwesome Plugins -->
+        <link rel="stylesheet" href="./js/fontawesome-free-5.3.1-web/css/solid.css">
+        <script src="./js/fontawesome-free-5.3.1-web/js/all.js"></script>
     </head>
 
 
-
-    <body>    
+<body>
         <div class="wrapper">
             <!-- Sidebar -->
             <nav id="sidebar">
                 <div class="sidebar-header">
                     <h3>Funimation Knockoff!</h3>
                 </div>
-
                 <!-- Begin List for Side Bar -->
                 <ul class="list-unstyled components">
                     <p>Menu</p>
@@ -44,7 +49,6 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                     <li>
                         <a href="index.php">Home</a>
                     </li>
-                    <!-- Login Option: Navigates to login.php -->
                     <li>
                         <a href="login.php">Login</a>
                     </li>
@@ -62,12 +66,12 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                             </li>
                         </ul>
                     </li>
-                    
                     <li>
                         <a href="#">Contact</a>
                     </li>
                 </ul>
             </nav>
+
             
             <!-- Page Content --> 
             <div id="content">
@@ -80,9 +84,18 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                     </div>
                 </nav>
             </div>
-        </div>
+            
+            <!-- Spacing for Signup Form -->
+            <div class="col-sm-12">
+                <div class="row">
+                <div class="col">1</div>
+                <div class="col">2</div>
+                <div class="col">3</div>
+            </div>
 
-        <!-- JAVASCRIPT FUNCTIONS -->
+          
+
+        <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& JAVASCRIPT FUNCTIONS &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">
         $(document).ready(function(){
@@ -91,10 +104,27 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
             });
         });
         </script>
+
     </body>
 
 
 
-               
 
-</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
