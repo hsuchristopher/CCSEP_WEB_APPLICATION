@@ -86,12 +86,37 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
             </div>
             
             <!-- Spacing for Signup Form -->
-            <div class="col-sm-12">
-                <div class="row">
-                <div class="col">1</div>
-                <div class="col">2</div>
-                <div class="col">3</div>
-            </div>
+            <div class="modal-dialog text-center">
+                    <div class="col-sm-15 main-section">
+                        <!--FORM CONTENT GOES INSIDE THIS DIV CLASS -->
+                        <div class="modal-content">
+                            <!-- Default Avatar -->
+                            <div class="col-12 user-img">
+                                <img src="./images/liam.jpg" width="50%" height="50%">
+                            </div>
+                            <!-- Username and Password Fields -->
+                            <form class="col-12">
+                            <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Enter Password">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Re-Enter Password">
+                                </div>
+                                <!-- Login Button Icon -->
+                                <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Sign Up</button>
+                            </form>
+                            <!-- Allow People to Sign up -->
+                            <div class="col-12 noaccount">
+                                <a href="login.php">Already have an account? Log in here</a>
+                            </div>
+                        </div> 
+                    </div>
 
           
 

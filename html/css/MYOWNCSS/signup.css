@@ -11,17 +11,114 @@ body{
     background-size: cover;
 };
 
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    grid-template-rows: 80px 200px;
-    grid-gap: 10px;
-    background-color: #2196F3;
-    padding: 10px;
-  }
-  .grid-container > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    padding: 20px 0;
-    font-size: 30px;
-  }
+
+.modal-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* RESIZING AND ADJUSTING THE MAIN WINDOW */
+.main-section{
+  margin: 0 auto;
+  margin-top: 100px;
+  margin-left: 150px;
+  padding: 0;
+  
+}
+
+.modal-content{
+  background-color: #3b4652;
+  opacity: 0.95;
+  padding: 0 18px;
+  box-shadow: 0px 0px 3px #848484;
+}
+
+/* PLAYING AROUND WITH THE IMPORTED IMAGE */
+/* Spacing top and bottom of outer box */
+.user-img{
+  margin-top: -50px;
+  margin-bottom: 35px;
+}
+
+.user-img img{
+  height: 150px;
+  width: 150px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #848484;
+}
+
+
+/* INPUT SECTIONS */
+.form-group{
+  margin-bottom: 25px;
+}
+
+.form-group input{
+  height: 42px;
+  border-radius: 5px;
+  border: 0;
+  font-size: 18px;
+  padding-left: 54px;
+}
+
+/* Icons Input Session*/
+.form-group::before{
+  font-family: 'Font Awesome\ 5 Free';
+  content: "\f0e0";
+  position: absolute;
+  font-size: 22px;
+  color: #555e60;
+  left: 28px;
+  padding-top: 4px;
+}
+
+
+.form-group:nth-last-of-type(3)::before {
+  content: "\f007";
+}
+
+.form-group:nth-last-of-type(2)::before {
+  content: "\f023";
+}
+
+
+/* Password Lock Icon */
+.form-group:last-of-type::before{
+  content: "\f023";
+}
+
+/* BUTTON ADJUSTMENT */
+#loginbtn{
+  width: 60%;
+  margin: 10px 0 25px;
+
+
+  background-color: #27c2a5;
+  color: #fff;
+  font-size: 19px;
+  padding: 7px 14px;
+  border-radius: 5px;
+  border-bottom: 4px solid #219882;
+}
+
+.btn:hover, .btn:focus{
+  background-color: #25a890 !important;
+  border-bottom: 4px solid #25a890 !important;
+}
+
+/* Button Icon */
+.svg-inline--fa{
+  font-size: 20px;
+  margin-right: 7px;
+}
+
+/* FORGOT PASSWORD */
+.noaccount{
+  padding: 5px 0 25px;
+}
+
+.noaccount a{
+  color: #c2fbfe
+}
