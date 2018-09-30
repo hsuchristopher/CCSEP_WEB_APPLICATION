@@ -97,16 +97,16 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                             <!-- Username and Password Fields -->
                             <form class="col-12">
                             <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Email">
+                                    <input type="text" class="form-control" placeholder="Enter Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Username">
+                                    <input type="text" class="form-control" placeholder="Enter Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Enter Password">
+                                    <input type="password" class="form-control" placeholder="Enter Password" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Re-Enter Password">
+                                    <input type="password" class="form-control" placeholder="Re-Enter Password" required>
                                 </div>
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Sign Up</button>

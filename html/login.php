@@ -6,11 +6,45 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
 
 <!DOCTYPE html>
 <?php
+    // Included Files
+    include("database_con.php");
+
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
+
+
+    // ONLY ATTEMPT TO LOGIN IF THE USER IS ALREADY NOT LOGGED IN
+    if(!isset($_SESSION["user"]))
+    {
+        if($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if(isset($_POST["username"]) && isset($_POST["password"]))
+            {
+
+            
+                $user = $_POST["username"];
+                $pass = $_POST["password"];
+
+                // Connect to Database and check the connection
+                connect_to_database();
+
+                // Now see if the user is allowed to log in
+                if($user !== "" && $pass !== "")
+                {
+                    echo yeet;
+                }
+            }
+        }
+    }
+
+
+
+
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -95,12 +129,12 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                                 <img src="./images/jwints1.jpg" width="50%" height="50%">
                             </div>
                             <!-- Username and Password Fields -->
-                            <form class="col-12">
+                            <form class="col-12" action="login.php" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username">
+                                    <input type="text" class="form-control" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password">
+                                    <input type="password" class="form-control" placeholder="Password" required>
                                 </div>
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Login</button>
