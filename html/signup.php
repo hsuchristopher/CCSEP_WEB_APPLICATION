@@ -5,11 +5,33 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
 -->
 
 <?php
+    include("database_con.php");
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
+
+    // Handle the form submissions
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        // Ensure that all the fields are set when posted
+        if(isset($_POST["email"], $_POST["username"], $_POST["retypepwd"], $_POST["password"]))
+        {
+            // CREATE POST VARIABLES
+            $email = $_POST["email"];
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+            $repass = $_POST["retypepwd"];
+
+            // Connect to Database
+            $conn = connect_to_database();
+
+            // Execute Prepared Statement to signup for user
+            signupValidation($email, $username, $password, $repass, $conn);
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -95,23 +117,23 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                                 <img src="./images/liam.jpg" width="50%" height="50%">
                             </div>
                             <!-- Username and Password Fields -->
-                            <form class="col-12">
+                            <form class="col-12" action="signup.php" method="post">
                             <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Email" required>
+                                    <input name="email" type="text" class="form-control" placeholder="Enter Email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter Username" required>
+                                    <input name="username" type="text" class="form-control" placeholder="Enter Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Enter Password" required>
+                                    <input name="password" type="password" class="form-control" placeholder="Enter Password" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Re-Enter Password" required>
+                                    <input name="retypepwd" type="password" class="form-control" placeholder="Re-Enter Password" required>
                                 </div>
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Sign Up</button>
                             </form>
-                            <!-- Allow People to Sign up -->
+                            <!-- Allow People to Log in -->
                             <div class="col-12 noaccount">
                                 <a href="login.php">Already have an account? Log in here</a>
                             </div>

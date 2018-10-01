@@ -77,6 +77,11 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                         <button type="button" id="sidebarCollapse" class="btn btn-default btn-lg">
                             <span class="glyphicon glyphicon-nav" aria-hidden="true"></span>
                         </button>
+                        <?php
+                            // Display Login Message if User has logged in!
+                            echo $_SESSION["welcome_message"];
+                            unset($_SESSION["welcome_message"]);
+                        ?>
                     </div>
                 </nav>
             </div>

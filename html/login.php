@@ -21,28 +21,45 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
     {
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            // Check the HTML Code to see if the username and password fields are set           
             if(isset($_POST["username"]) && isset($_POST["password"]))
             {
-
-            
                 $user = $_POST["username"];
                 $pass = $_POST["password"];
 
                 // Connect to Database and check the connection
-                connect_to_database();
-
+                $conn = connect_to_database();
+               
                 // Now see if the user is allowed to log in
                 if($user !== "" && $pass !== "")
                 {
-                    echo yeet;
+                    // Retrieve the SQL Query
+                    $sql = getSQL("SELECT Password FROM Users WHERE Username=? AND Password=?");
+
+                    // Execute Prepared Statement in function
+                    $count = executePreparedLogin($user, $pass, $sql, $conn);
+
+                    if($count == 0)     // Invalid User
+                    {
+                        // Error Message using Flash Variable
+                        $_SESSION["error"] = "Incorrect Username/Password";
+                        header("Location: login.php");
+                        return;
+                    }
+                    else if($count > 0)     // Valid Users
+                    {
+                        // CREATE SESSION
+                        $_SESSION["status"] = true;     // Tell if the user is logged in
+                        // CREATE SESSION VARIABLES
+                        $_SESSION["username"] = $user;
+                        $_SESSION["welcome_message"] = "Welcome {$_SESSION["username"]}!";
+                        header('Location: index.php');
+                        return;
+                    }
                 }
             }
         }
     }
-
-
-
-
 
     
 ?>
@@ -131,14 +148,23 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                             <!-- Username and Password Fields -->
                             <form class="col-12" action="login.php" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Username" required>
+                                    <input name="username" type="text" class="form-control" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" required>
+                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
                                 </div>
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Login</button>
                             </form>
+                            <!-- Flash and Redirect Session with error message -->
+                            <?php
+                                if(isset($_SESSION["error"]))
+                                {
+                                    // Print Error Message then destroy the session variable
+                                    echo $_SESSION["error"];
+                                    unset($_SESSION["error"]);
+                                }
+                            ?>
                             <!-- Allow People to Sign up -->
                             <div class="col-12 noaccount">
                                 <a href="signup.php">Don't have an account? Sign up now</a>
