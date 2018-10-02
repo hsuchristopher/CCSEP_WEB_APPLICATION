@@ -5,6 +5,10 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
 -->
 
 <?php
+    /* NOTE: The multiple returns used in this php code is standard used to
+             reload the php code when an error occurs because you do not want
+             the webpage to continue on loading the rest of the page */
+
     include("database_con.php");
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
@@ -27,8 +31,52 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
             // Connect to Database
             $conn = connect_to_database();
 
-            // Execute Prepared Statement to signup for user
-            signupValidation($email, $username, $password, $repass, $conn);
+            /* ALL VALIDATION CHECKING */
+            // Ensure both passwords are matching
+            if($password == $repass)
+            {
+                // Check if email already exists
+                $query = getSQL("SELECT email FROM Users WHERE email=?");
+                // Executes a prepared statement
+                $num_rows = genericPreparedOne($email, $conn, $query);
+                
+                // Check if already exists in the database
+                if($num_rows >= 1)
+                {
+                    $_SESSION["error"] = "Email already exists!";
+                    header('Location: signup.php');
+                    /* The returns are used to reload the php code */
+                    return;
+                }
+
+
+                // Check if Username already exists
+                $query = getSQL("SELECT username FROM Users WHERE username=?");
+                $num_rows = genericPreparedOne($username, $conn, $query);
+                if($num_rows >= 1)
+                {
+                    $_SESSION["error"] = "Username already exists!";
+                    header('Location: signup.php');
+                    /* The returns are used to reload the php code */
+                    return;
+                }
+
+            }
+            else    // Passwords do not match
+            {
+                $_SESSION["error"] = "Passwords do not match!";
+                header('Location: signup.php');
+                /* The returns are used to reload the php code */
+                return;
+            }
+
+
+            /* If reached here then User can successfully sign up */
+            registerRegularUser($email, $username, $password, $conn);
+
+            header('Location: success.php');
+            return;
+
         }
     }
 
@@ -75,21 +123,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                         <a href="login.php">Login</a>
                     </li>
                     <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">About Us</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
-                            <li>
-                                <a href="#">Page 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Page 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
+                        <a href="signup.php">Sign Up</a>
                     </li>
                 </ul>
             </nav>
@@ -119,7 +153,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                             <!-- Username and Password Fields -->
                             <form class="col-12" action="signup.php" method="post">
                             <div class="form-group">
-                                    <input name="email" type="text" class="form-control" placeholder="Enter Email" required>
+                                    <input name="email" type="email" class="form-control" placeholder="Enter Email" required>
                                 </div>
                                 <div class="form-group">
                                     <input name="username" type="text" class="form-control" placeholder="Enter Username" required>
@@ -131,8 +165,18 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                                     <input name="retypepwd" type="password" class="form-control" placeholder="Re-Enter Password" required>
                                 </div>
                                 <!-- Login Button Icon -->
-                                <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Sign Up</button>
+                                <form action="success.php">
+                                    <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Sign Up</button>
+                                </form>
                             </form>
+                            <?php
+                                // Error Messages
+                                if(isset($_SESSION["error"]))
+                                {
+                                    echo $_SESSION["error"];
+                                    unset($_SESSION["error"]);
+                                }
+                            ?>
                             <!-- Allow People to Log in -->
                             <div class="col-12 noaccount">
                                 <a href="login.php">Already have an account? Log in here</a>

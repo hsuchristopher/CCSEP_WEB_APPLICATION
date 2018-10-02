@@ -1,0 +1,38 @@
+/**
+Author: Christopher Chang
+Date: Wednesday 26th September 2018
+Purpose: CCSEP Assignment 2018, The success stylesheet for when a user has successfully registered
+**/
+
+/* BACKGROUND IMAGE */
+body{
+    background-image: url(../../images/lincoln.jpg);
+    background-size: cover;
+}
+
+.card {
+    position: fixed; /* or absolute */
+    top: 30%;
+    left: 30%;
+  }
+
+  #redirectbtn{
+    background-color: #4B0082;
+    color: #fff;
+    font-size: 19px;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom: 4px solid #4B0082;
+  }
+
+
+.btn:hover, .btn:focus{
+    background-color: #9975b9 !important;
+    border-bottom: 4px solid #9975b9 !important;
+  }
+
+/* Button Icon */
+.svg-inline--fa{
+    font-size: 20px;
+    margin-right: 7px;
+  }

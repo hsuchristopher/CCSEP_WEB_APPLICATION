@@ -91,41 +91,25 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
 
 
     /**
-     * Does all front end validation of user input, function returns
-     * a boolean, true if we can continue on with the prepared statement
-     * false if we should show an error message back to the user
+     * Once all the initial validation checking is done for signing up a user
+     * this function will be called to actually register ONLY A NORMAL USER
+     * (NOT PRIVILEGED ADMIN USER)
      */
-    function signupValidation($email, $username, $password, $repass, $conn)
+    function registerRegularUser($email, $username, $password, $conn)
     {
-        $retVal = false;
-        $errMsg = "";
+        $query = getSQL("INSERT INTO Users (username, email, password) VALUES(?,?,?)");
 
-        // Ensure both passwords are matching
-        if($password == $repass)
+        // SET UP PREPARED STATEMENT
+        if($stmt = mysqli_prepare($conn, $query))
         {
-            // Check if email already exists
-            $query = getSQL("SELECT email FROM Users WHERE email=?");
-            $num_rows = genericPreparedOne($email, $conn, $query);
-            if(num_rows == 0)
-            {
-                echo "NUM ROWS RETURNED ZERO";
-            }
-            else
-            {
-                echo "NUM ROWS DIDNT RETURN ZERO";
-            }
-            
+            // In order for the user to be regular use, the type has to be equal to 1 and all users
+            // initially start off with no funds when they sign up (So no need to input here)
+            mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $password);
+            mysqli_stmt_fetch($stmt);
         }
-
-
-
-
     }
-
-
-
-
-
 
 
 ?>

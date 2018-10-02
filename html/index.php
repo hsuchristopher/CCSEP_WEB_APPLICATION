@@ -6,7 +6,11 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
 
 <!DOCTYPE html>
 <?php
-    session_start();
+    // Only call start session if there is not a session already
+    if(session_status() == PHP_SESSION_NONE)
+    {
+        session_start();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -44,28 +48,44 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                     <li>
                         <a href="index.php">Home</a>
                     </li>
-                    <!-- Login Option: Navigates to login.php -->
-                    <li>
-                        <a href="login.php">Login</a>
-                    </li>
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">About Us</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <?php
+                        // IF THE USER HAS NOT LOGGED IN YOU WANT TO SHOW LOGIN AND SIGNUP OPTIONS ELSE NOT
+                        if(!(isset($_SESSION["status"])))
+                        {
+                    ?>
+                            <!-- Login Option: Navigates to login.php -->
                             <li>
-                                <a href="#">Page 1</a>
+                                <a href="login.php">Login</a>
                             </li>
                             <li>
-                                <a href="#">Page 2</a>
+                                <a href="signup.php">Sign Up</a>
                             </li>
+                    <?php
+                        }
+                    ?>
+                    <?php
+                        // IF SESSION IS SET YOU WANT TO ALLOW USERS TO PURCHASE AND ADD FUNDS etc.
+                        if((isset($_SESSION["status"])))
+                        {
+                    ?>
                             <li>
-                                <a href="#">Page 3</a>
+                                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Store</a>
+                                <ul class="collapse list-unstyled" id="pageSubmenu">
+                                    <li>
+                                        <a href="#">Purchase</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Add Funds</a>
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
+                            
+                            <li>
+                                <a href="signout.php">Sign Out</a>
+                            </li>
+                    <?php
+                        }
+                    ?>
                 </ul>
             </nav>
             
@@ -78,9 +98,12 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                             <span class="glyphicon glyphicon-nav" aria-hidden="true"></span>
                         </button>
                         <?php
-                            // Display Login Message if User has logged in!
-                            echo $_SESSION["welcome_message"];
-                            unset($_SESSION["welcome_message"]);
+                            if(isset($_SESSION["welcome_message"]))
+                            {
+                                // Display Login Message if User has logged in!
+                                echo $_SESSION["welcome_message"];
+                                unset($_SESSION["welcome_message"]);
+                            }
                         ?>
                     </div>
                 </nav>
