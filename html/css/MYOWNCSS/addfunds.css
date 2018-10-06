@@ -1,0 +1,11 @@
+body{
+    background-image: url("../../images/jojo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card {
+    margin-top: 250px;
+    margin-right: 150px;
+}
+

@@ -29,14 +29,31 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
         return $conn;
     }
 
-    
     /**
-     * Returns the SQL Query String
+     * When the User manages to successfully login, these global variables
+     * for the session will be created and stored in a cookie
      */
-    function getSQL($query)
+    function updateSessionCookie($conn, $user)
     {
-        return $query;
+        $_SESSION["status"] = true;     // Tell if the user is logged in
+        $_SESSION["username"] = $user;
+        
+
+        $query = "SELECT type FROM Users WHERE username=?";
+        $_SESSION["credit"] = getRowValue($conn, $query, $user);                   // Privilege Level
+
+        
+        $query = "SELECT funds FROM Users WHERE username=?";
+        $_SESSION["funds"] = getRowValue($conn, $query, $user);                    // Available Funds
+
+        $query = "SELECT id FROM Users WHERE username=?";
+        $_SESSION["user_id"] = getRowValue($conn, $query, $user);
+
+        $query = "SELECT username FROM Users WHERE username=?";
+        $_SESSION["username"] = getRowValue($conn, $query, $user);
+
     }
+
 
     /**
      * Sets Up Prepared Statement for Login and executes it,
@@ -97,7 +114,7 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
      */
     function registerRegularUser($email, $username, $password, $conn)
     {
-        $query = getSQL("INSERT INTO Users (username, email, password) VALUES(?,?,?)");
+        $query = "INSERT INTO Users (username, email, password) VALUES(?,?,?)";
 
         // SET UP PREPARED STATEMENT
         if($stmt = mysqli_prepare($conn, $query))
@@ -110,6 +127,39 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
             mysqli_stmt_fetch($stmt);
         }
     }
+
+
+
+    /**
+     * This function is used for setting the global session variables in order to
+     * create the cookie
+     */
+    function getRowValue($conn, $query, $bind_param)
+    {
+        if($stmt = mysqli_prepare($conn, $query))
+        {
+            mysqli_stmt_bind_param($stmt, "s", $bind_param);
+
+            /* execute statement */
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+            // In this case the While and foreach loops will only run once
+            while ($row = mysqli_fetch_array($result, MYSQLI_NUM))
+            {
+                foreach ($row as $r)
+                {
+                    // Assign the actual data
+                    $retVal = $r;
+                }
+            }
+        }
+
+        return $retVal;
+    }
+
+
+
 
 
 ?>

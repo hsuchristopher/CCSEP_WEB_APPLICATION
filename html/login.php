@@ -34,7 +34,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                 if($user !== "" && $pass !== "")
                 {
                     // Retrieve the SQL Query
-                    $sql = getSQL("SELECT Password FROM Users WHERE Username=? AND Password=?");
+                    $sql = "SELECT Password FROM Users WHERE Username=? AND Password=?";
 
                     // Execute Prepared Statement in function
                     $count = executePreparedLogin($user, $pass, $sql, $conn);
@@ -48,11 +48,15 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                     }
                     else if($count > 0)     // Valid Users
                     {
-                        // CREATE SESSION
-                        $_SESSION["status"] = true;     // Tell if the user is logged in
                         // CREATE SESSION VARIABLES
-                        $_SESSION["username"] = $user;
-                        $_SESSION["welcome_message"] = "Welcome {$_SESSION["username"]}!";
+                        updateSessionCookie($conn, $user);
+
+                        // Allows the welcome message to be only shown upon login and never again
+                        $query = "SELECT username FROM Users WHERE username=?";
+                        $name = getRowValue($conn, $query, $user);
+                        $_SESSION["welcome_message"] = "Welcome {$name}!";
+
+
                         header('Location: index.php');
                         return;
                     }
