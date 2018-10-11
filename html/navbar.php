@@ -32,7 +32,7 @@
             {
         ?>
                 <li>
-                    <a href=#Profile>Profile</a>
+                    <a href=profile.php>Profile</a>
                 </li>
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Store</a>
@@ -57,7 +57,7 @@
                                     <a href="movielisting.php">Add/Remove Movies</a>
                                 </li>
                                 <li>
-                                    <a href="userListing.php">Manage User Accounts</a>
+                                    <a href="userlisting.php">Manage User Accounts</a>
                                 </li>
                             </ul>
                         </li>

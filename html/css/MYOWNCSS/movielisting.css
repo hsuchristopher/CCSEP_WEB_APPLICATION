@@ -1,0 +1,13 @@
+body{
+    background-image: url(../../images/touka1.jpg);
+}
+
+.modal-backdrop {
+    background-color: blue;
+ }
+
+  /* Modal Header */
+.modal-header {
+    background-color: red;
+    color: white;
+}

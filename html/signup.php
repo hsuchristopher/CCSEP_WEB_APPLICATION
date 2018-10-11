@@ -16,68 +16,80 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
         session_start();
     }
 
-    // Handle the form submissions
-    if($_SERVER["REQUEST_METHOD"] == "POST")
+    // Users May only see this page if they haven't logged in
+    if(!($_SESSION["status"]))
     {
-        // Ensure that all the fields are set when posted
-        if(isset($_POST["email"], $_POST["username"], $_POST["retypepwd"], $_POST["password"]))
+        // Handle the form submissions
+        if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            // CREATE POST VARIABLES
-            $email = $_POST["email"];
-            $username = $_POST["username"];
-            $password = $_POST["password"];
-            $repass = $_POST["retypepwd"];
-
-            // Connect to Database
-            $conn = connect_to_database();
-
-            /* ALL VALIDATION CHECKING */
-            // Ensure both passwords are matching
-            if($password == $repass)
+            // Ensure that all the fields are set when posted
+            if(isset($_POST["email"], $_POST["username"], $_POST["retypepwd"], $_POST["password"]))
             {
-                // Check if email already exists
-                $query = getSQL("SELECT email FROM Users WHERE email=?");
-                // Executes a prepared statement
-                $num_rows = genericPreparedOne($email, $conn, $query);
-                
-                // Check if already exists in the database
-                if($num_rows >= 1)
+                // CREATE POST VARIABLES
+                $email = $_POST["email"];
+                $username = $_POST["username"];
+                $password = $_POST["password"];
+                $repass = $_POST["retypepwd"];
+
+                // Connect to Database
+                $conn = connect_to_database();
+
+                /* ALL VALIDATION CHECKING */
+                // Ensure both passwords are matching
+                if($password == $repass)
                 {
-                    $_SESSION["error"] = "Email already exists!";
+                    // Check if email already exists
+                    $query = "SELECT email FROM Users WHERE email=?";
+                    // Executes a prepared statement
+                    $num_rows = genericPreparedOne($email, $conn, $query);
+                    
+                    // Check if already exists in the database
+                    if($num_rows >= 1)
+                    {
+                        $_SESSION["error"] = "Email already exists!";
+                        header('Location: signup.php');
+                        /* The returns are used to reload the php code */
+                        return;
+                    }
+
+
+                    // Check if Username already exists
+                    $query = "SELECT username FROM Users WHERE username=?";
+                    $num_rows = genericPreparedOne($username, $conn, $query);
+                    if($num_rows >= 1)
+                    {
+                        $_SESSION["error"] = "Username already exists!";
+                        header('Location: signup.php');
+                        /* The returns are used to reload the php code */
+                        return;
+                    }
+
+                }
+                else    // Passwords do not match
+                {
+                    $_SESSION["error"] = "Passwords do not match!";
                     header('Location: signup.php');
                     /* The returns are used to reload the php code */
                     return;
                 }
 
 
-                // Check if Username already exists
-                $query = getSQL("SELECT username FROM Users WHERE username=?");
-                $num_rows = genericPreparedOne($username, $conn, $query);
-                if($num_rows >= 1)
-                {
-                    $_SESSION["error"] = "Username already exists!";
-                    header('Location: signup.php');
-                    /* The returns are used to reload the php code */
-                    return;
-                }
+                // Hash the Password with md5
+                $password = md5($password);
 
-            }
-            else    // Passwords do not match
-            {
-                $_SESSION["error"] = "Passwords do not match!";
-                header('Location: signup.php');
-                /* The returns are used to reload the php code */
+                /* If reached here then User can successfully sign up */
+                registerRegularUser($email, $username, $password, $conn);
+
+                header('Location: success.php');
                 return;
+
             }
-
-
-            /* If reached here then User can successfully sign up */
-            registerRegularUser($email, $username, $password, $conn);
-
-            header('Location: success.php');
-            return;
-
         }
+    }
+    else    // Redirect to index.php
+    {
+        header("location: index.php");
+        return;
     }
 
 ?>

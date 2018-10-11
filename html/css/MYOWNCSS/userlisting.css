@@ -1,0 +1,25 @@
+body{
+    background-image: url(../../images/4k.jpg);
+}
+
+.modal-backdrop {
+    background-color: purple;
+ }
+
+ /* Modal Header */
+.modal-header {
+    background-color: pink;
+    color: white;
+}
+
+/* Modal Footer */
+.modal-footer {
+    background-color: pink;
+    color: white;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}

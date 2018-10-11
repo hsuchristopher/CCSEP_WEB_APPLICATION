@@ -1,0 +1,45 @@
+body{
+	background-image: url("/images/touka.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+.card {
+    display:inline-block;
+}
+
+.widthSet {
+    max-width: 100px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 30vw;
+    object-fit: cover;
+}
+
+.card-name{
+    position: absolute;
+    top: 45%;
+    width:100%;
+    text-align: center;
+
+    opacity: 0;
+
+    color:white;
+
+    transition-duration: .5s;
+}
+
+.card-cover{
+    background: purple;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+
+    opacity: 0;
+
+    transition-duration: .5s;
+}

@@ -4,7 +4,6 @@ Date: Wednesday 26th September 2018
 Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movies
 -->
 
-<!DOCTYPE html>
 <?php
     include("database_con.php");
     include("modal_buttons.php");
@@ -15,39 +14,28 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
         session_start();
     }
 
-    $conn = connect_to_database();
-    updateSessionCookie($conn, $_SESSION["username"]);
-
-    // Shows listing of movies upon loading of the page
-    $query = "SELECT * FROM Movies";
-    $result = mysqli_query($conn, $query);
-
-    /* When Admin adds a Movie */
-    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_btn"]))
+    // If user is logged in
+    if($_SESSION["status"])
     {
-        // Ensure the Movie ID doesn't Already exist in the Database
-        $query = "SELECT * FROM Movies WHERE id='" . $_POST["movie_id"] . "'";
+        $conn = connect_to_database();
+        updateSessionCookie($conn, $_SESSION["username"]);
 
+        // Shows listing of movies upon loading of the page
+        $query = "SELECT * FROM Movies";
         $result = mysqli_query($conn, $query);
 
-        $row_count = mysqli_num_rows($result);
-        
-        if($row_count == 1)     // ID Already exists in database
+        /* When Admin adds a Movie */
+        if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_btn"]))
         {
-            $_SESSION["error"] = "Movie ID Already Exists/ID's MUST BE UNIQUE";
-            header("location: movielisting.php");
-            return;
-        }
-        else
-        {
-            $id = $_POST["movie_id"];
+
             $name = $_POST["movie_name"];
             $synopsis = $_POST["movie_synopsis"];
             $price = $_POST["movie_price"];
 
             // BEGIN ADDING NEW MOVIE INTO DATABASE
-            $query = "INSERT INTO Movies(id, name, synopsis, price) VALUES(" . $id . ",'" . $name . 
-                                        "','" . $synopsis . "'," . $price . ")";
+            $query = "INSERT INTO Movies(name, synopsis, price) VALUES('$name','$synopsis','$price')";
+
+            echo $query;
 
             // Execute the Query /Insert Into Table
             $result = mysqli_query($conn, $query);
@@ -57,41 +45,46 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
             header("location: movielisting.php");
             return;
         }
-    }
-    // USER WANTS TO DELETE AN ITEM
-    else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["remove_btn"]))
-    {
-        if(empty($_POST["check_list"]))
+        // USER WANTS TO DELETE AN ITEM
+        else if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["remove_btn"]))
         {
-            // Print Error Message
-            $_SESSION["error"] = "You must select items to remove";
-            header("location: movielisting.php");
-            return;
-        }
-        else
-        {
-            foreach($_POST['check_list'] as $check) 
+            if(empty($_POST["check_list"]))
             {
-                // Query to Delete Row
-                $query = "DELETE FROM Movies WHERE id=" . $check . "";
-                
-                // Execute Query
-                $result = mysqli_query($conn, $query);
+                // Print Error Message
+                $_SESSION["error"] = "You must select items to remove";
+                header("location: movielisting.php");
+                return;
             }
-            
-            // Tell the User Items have been deleted
-            $_SESSION["success"] = "Items have been successfully deleted";
-            header("location: movielisting.php");
-            return;
+            else
+            {
+                foreach($_POST['check_list'] as $check) 
+                {
+                    // Query to Delete Row
+                    $query = "DELETE FROM Movies WHERE id=" . $check . "";
+                    
+                    // Execute Query
+                    $result = mysqli_query($conn, $query);
+                }
+                
+                // Tell the User Items have been deleted
+                $_SESSION["success"] = "Items have been successfully deleted";
+                header("location: movielisting.php");
+                return;
+            }
         }
+    }
+    else    // Means User hasn't logged in, redirect to login page
+    {
+        header("location: login.php");
+        $_SESSION["error"] = "LOG IN FIRST YOU IDIOT!";
+        return;
     }
 
 ?>
 
 <!DOCTYPE html>
 <html>
-
-     <head>
+    <head>
         <?php
             $title = "ADMIN PANEL";
             include('header.php')
@@ -142,7 +135,7 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <h1 class="display-1" style="color:#2F4F4F">ADD/REMOVE MOVIES</h1>
+                                    <h1 class="display-1" style="color:#9932CC">ADD/REMOVE MOVIES</h1>
                                 </div>
                             </div>
                         </div>  
@@ -175,27 +168,26 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while($row = mysqli_fetch_array($result, MYSQLI_NUM)):;?>
-                                    <tr>
-                                        <td><?php echo $row[0];?></td>
-                                        <td><?php echo $row[1];?></td>
-                                        <td><?php echo $row[2];?></td>
-                                        <td><?php echo $row[3];?></td>
-                                        <form class="col-12" action="movielisting.php" method="post">
+                                <form class="col-12" action="movielisting.php" method="post">
+                                    <?php while($row = mysqli_fetch_array($result, MYSQLI_NUM)):;?>
+                                        <tr>
+                                            <td><?php echo $row[0];?></td>
+                                            <td><?php echo $row[1];?></td>
+                                            <td><?php echo $row[2];?></td>
+                                            <td><?php echo $row[3];?></td>
                                             <td>
                                                 <div class="col-sm-2" style="text-align: center;">
                                                     <!-- By Storing the name as a check_list you can delete multiple entries now since it
-                                                         is inside a list -->
+                                                        is inside a list -->
                                                     <input type="checkbox" name="check_list[]" class="form-check-input" value="<?php echo $row[0];?>">
                                                 </div>
-                                            </td>
-                                            
-                                    </tr>
-                                <?php endwhile;?>
-                                <?php
-                                    // Displays HTML For Deleting a Movie
-                                    deleteMovieModal();
-                                ?>
+                                            </td>     
+                                        </tr>
+                                    <?php endwhile;?>
+                                    <?php
+                                        // Displays HTML For Deleting a Movie
+                                        deleteMovieModal();
+                                    ?>
                                 </form>
                             </tbody>
                         </table>

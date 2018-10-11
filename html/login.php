@@ -17,7 +17,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
 
 
     // ONLY ATTEMPT TO LOGIN IF THE USER IS ALREADY NOT LOGGED IN
-    if(!isset($_SESSION["user"]))
+    if(!isset($_SESSION["status"]))
     {
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
@@ -26,6 +26,9 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
             {
                 $user = $_POST["username"];
                 $pass = $_POST["password"];
+
+                // Hash the password to check if the has values match with the database
+                $pass = md5($pass);
 
                 // Connect to Database and check the connection
                 $conn = connect_to_database();
@@ -64,7 +67,11 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
             }
         }
     }
-
+    else    // Means User has already logged in so Redirect to index.php
+    {
+        header("location: index.php");
+        return;
+    }
     
 ?>
 

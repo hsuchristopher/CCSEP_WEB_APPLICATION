@@ -24,9 +24,6 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="form-group">
-                        <input name="movie_id" type="number" class="form-control" placeholder="Movie ID" required>
-                    </div>
-                    <div class="form-group">
                         <input name="movie_name" type="text" class="form-control" placeholder="Movie Title" required>
                     </div>
                     <div class="form-group">
@@ -38,7 +35,7 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn" name="add_btn" value="add">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="add_btn" value="add">Submit</button>
                 </div>
             </form>
         </div>
@@ -50,7 +47,6 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
 
 
 
-
 <?php
     /**
      * Pop Up Window for Deleting a Movie
@@ -58,7 +54,6 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
     function deleteMovieModal()
     {
 ?>
-        
         <!-- The Modal -->
         <div class="modal fade" id="deleteModal">
             <div class="modal-dialog">
@@ -78,23 +73,66 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-danger" name="remove_btn" value="delete" style="background-color: red;">Yes</button>
+                        <button type="submit" class="btn btn-success btn-lg" name="remove_btn" value="delete">Yes</button>
                     </div>
 
                 </div>
             </div>
         </div>
-
-
-
-
-
-
+<?php
+    }
+?>
 
 
 
 
 <?php
+    /**
+     * Pop Up Window for Editing a User as Admin
+     */
+    function editUserModal()
+    {
+?>
+        <!-- The Modal -->
+        <div class="modal fade" id="editUser">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">SO YOU WANNA CHANGE SOMETHING</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input name="change_password" type="password" class="form-control" placeholder="Change Password">
+                        </div>
+                        <div class="form-group">
+                            <input name="change_funds" type="number" class="form-control" placeholder="Edit Funds (Enter New Total Funds)">
+                        </div>
+                        <h5>Make Admin:</h5>
+                        <div class="form-group col-1">
+                            <label class="container">
+                                <input type="radio" name="make_admin" class="form-check-input" value="yes">
+                                Yes
+                            </label>
+                            <label class="container">
+                                <input type="radio" name="make_admin" class="form-check-input" value="no">
+                                No
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger" name="apply_changes" value="apply" style="background-color: blue">Apply Changes</button>
+                        <button type="submit" class="btn btn-danger" name="delete_usr" value="delete" style="background-color: red;">Delete Account/s</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php
     }
 ?>
-

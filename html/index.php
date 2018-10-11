@@ -16,11 +16,13 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
 <!DOCTYPE html>
 <html>
     <head>
+        <embed src="./audio/ora.mp3"  autostart="true" hidden='true'/>
         <?php
             $title = "WHAT ARE YOU BUYING";
             include('header.php')
         ?>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
+        
     </head>
 
     <body>    

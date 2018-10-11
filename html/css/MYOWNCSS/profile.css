@@ -1,0 +1,9 @@
+body{
+    background-image: url(../../images/naruto.jpg);
+}
+
+h1 {
+    border-bottom: 3px solid black;
+    font-size: 1-px;
+    display: inline-block;
+}

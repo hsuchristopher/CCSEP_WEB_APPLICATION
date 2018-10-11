@@ -42,16 +42,11 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
         $query = "SELECT type FROM Users WHERE username=?";
         $_SESSION["credit"] = getRowValue($conn, $query, $user);                   // Privilege Level
 
-        
         $query = "SELECT funds FROM Users WHERE username=?";
         $_SESSION["funds"] = getRowValue($conn, $query, $user);                    // Available Funds
 
-        $query = "SELECT id FROM Users WHERE username=?";
+        $query = "SELECT UserID FROM Users WHERE username=?";
         $_SESSION["user_id"] = getRowValue($conn, $query, $user);
-
-        $query = "SELECT username FROM Users WHERE username=?";
-        $_SESSION["username"] = getRowValue($conn, $query, $user);
-
     }
 
 

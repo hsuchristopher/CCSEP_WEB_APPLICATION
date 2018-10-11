@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <?php
     include("database_con.php");
 
@@ -24,7 +24,7 @@
                 $additions = $_POST["balance"];
                 $newbalance = $_SESSION["funds"] + $additions;
 
-                $query = "UPDATE Users SET funds=$newbalance WHERE id=$uid";
+                $query = "UPDATE Users SET funds=$newbalance WHERE userID=$uid";
                 mysqli_query($conn, $query);
 
                 $_SESSION['funds'] = $newbalance;
@@ -44,11 +44,17 @@
         {
             $balance_info = "You currently have {$_SESSION['funds']} RayCoins Available";
         }
-
-        
+    }
+    else
+    {
+        // User hasn't logged in redirect!
+        header("location: login.php");
+        $_SESSION["error"] = "LOG IN FIRST YOU IDIOT!";
+        return;
     }
 ?>
 
+<!DOCTYPE html>
 <html>
     <head>
         <?php 
@@ -64,22 +70,27 @@
         <div class="wrapper">
             <?php include('navbar.php')?>
             <!-- Page Content --> 
-            <div id="content">
+            <div id="content" class="container-fluid">
                 <?php include('navbarButton.php')?>
-                <div class="container">
-                    <div class="card text-white bg-dark">
-                        <div class="card-header">
-                            SO YOU WANT SOME MONEY
+                <br><br><br><br>  
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-auto">
+                        <div class="card text-white bg-dark">
+                            <div class="card-header">
+                                SO YOU WANT SOME MONEY
+                            </div>
+                            <div class="card-body"> 
+                                <?php
+                                    echo $balance_info;
+                                ?>
+                                <form class="form-inline" method="post" action="addfunds.php">
+                                    <label class="card-text" style="white-space:nowrap">Enter the amount of RayCoins:</label>
+                                    <input class="form-control ml-3" type="number" name="balance" value="0" min="0" step="1">
+                                    <button type="submit" class="btn btn-primary ml-5">Add Funds</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="card-body"> 
-                            <?php
-                                echo $balance_info;
-                            ?>
-                            <form class="form-inline" method="post" action="addfunds.php">
-                                <label class="card-text" style="white-space:nowrap">Enter the amount of RayCoins:</label>
-                                <input class="form-control ml-3" type="number" name="balance" value="0" min="0" step="1">
-                                <button type="submit" class="btn btn-primary ml-5">Add Funds</button>
-                            </form>
                         </div>
                     </div>
                 </div>
