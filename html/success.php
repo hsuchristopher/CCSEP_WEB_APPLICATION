@@ -12,9 +12,10 @@ Purpose: CCSEP Assignment 2018, The success page for when a user has successfull
 ?>
 
 <head>
+    <embed src="./audio/ohno.mp3"  autostart="true" hidden='true'/>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CONGRATULATIONS NANI!!</title>
+    <title>OH MY GOD!!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" media="screen" href="./css/bootstrap.min.css"/>

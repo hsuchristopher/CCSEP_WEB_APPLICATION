@@ -21,18 +21,16 @@
 
 
 
-
 <html>
     <head>
         <?php
-            $title = "MOVIES/ANIME!";
+            $title = "Profile";
             include('header.php')
         ?>
+        <embed src="./audio/naruto16.mp3"  autostart="true" hidden='true'/>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/profile.css">
     </head>
-
-
 
     <body>
         <div class="wrapper">
@@ -54,7 +52,6 @@
                         </div>
                     </div>
                 </nav>
-
                 <div class="container-fluid">
                     <div class="col-sm-3">
                         <div class="row-sm-3">
@@ -66,27 +63,11 @@
                     </div>
                 </div>
             </div>
+
+            <h1 class="display-6">UNDER CONSTRUCTION</h1>
+
+
         </div>        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         <!-- JAVASCRIPT FUNCTIONS -->

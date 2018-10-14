@@ -7,9 +7,6 @@
     {
         session_start();
     }
-
-    
-
     if($_SESSION["status"])
     {
         $conn = connect_to_database();
@@ -48,6 +45,7 @@
             $title = "MOVIES/ANIME!";
             include('header.php')
         ?>
+        <embed src="./audio/gc2.mp3"  autostart="true" hidden='true'/>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/purchase.css">
     </head>

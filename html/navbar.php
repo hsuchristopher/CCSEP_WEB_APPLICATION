@@ -50,20 +50,21 @@
                     if($_SESSION["credit"] == 0)
                     {
                 ?>
+                <li>
+                    <a href="#adminSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admin Panel</a>
+                    <ul class="collapse list-unstyled" id="adminSubMenu">
                         <li>
-                            <a href="#adminSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admin Panel</a>
-                            <ul class="collapse list-unstyled" id="adminSubMenu">
-                                <li>
-                                    <a href="movielisting.php">Add/Remove Movies</a>
-                                </li>
-                                <li>
-                                    <a href="userlisting.php">Manage User Accounts</a>
-                                </li>
-                            </ul>
+                            <a href="admin.php?page=movielisting">Add/Remove Movies</a>
                         </li>
+                        <li>
+                            <a href="admin.php?page=userlisting">Manage User Accounts</a>
+                        </li>
+                    </ul>
+                </li>
                 <?php
                     }
                 ?>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <li>
                     <a href="signout.php">Sign Out</a>
                 </li>

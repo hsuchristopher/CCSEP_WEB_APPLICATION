@@ -97,6 +97,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <embed src="./audio/aot.mp3"  autostart="true" hidden='true'/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Login</title>
@@ -171,10 +172,10 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                                     <input name="username" type="text" class="form-control" placeholder="Enter Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input name="password" type="password" class="form-control" placeholder="Enter Password" required>
+                                    <input name="password" type="password" class="form-control" placeholder="Enter Password">
                                 </div>
                                 <div class="form-group">
-                                    <input name="retypepwd" type="password" class="form-control" placeholder="Re-Enter Password" required>
+                                    <input name="retypepwd" type="password" class="form-control" placeholder="Re-Enter Password">
                                 </div>
                                 <!-- Login Button Icon -->
                                 <form action="success.php">

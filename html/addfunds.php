@@ -58,9 +58,10 @@
 <html>
     <head>
         <?php 
-            $title = "Money Time!";
+            $title = "FIGHTING GOLD!";
             include('header.php')
         ?> 
+        <embed src="./audio/jojo5.mp3"  autostart="true" hidden='true'/>
         <!-- My Own CSS -->
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/addfunds.css">

@@ -3,8 +3,6 @@ Author: Christopher Chang
 Date: Wednesday 26th September 2018
 Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
 -->
-
-<!DOCTYPE html>
 <?php
      include("database_con.php");
      include("modal_buttons.php");
@@ -31,8 +29,8 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
             // Ensure the User has selected users to modify 
             if(empty($_POST["check_list"]))
             {
-                $_SESSION["error"] = "Please Select Users to edit";
-                header("location: userlisting.php");
+                $_SESSION["error"] = "Please Select Users to Edit";
+                header("location: admin.php?page=userlisting");
                 return;
             }
 
@@ -53,7 +51,7 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
 
                 // Tell the User Items have been deleted
                 $_SESSION["success"] = "Users have been successfully deleted";
-                header("location: userlisting.php");
+                header("location: admin.php?page=userlisting");
                 return;
             }
             // Or the Apply Changes button was selected
@@ -70,7 +68,7 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
                             "' WHERE UserID=" . $check . ";";
                     }
                 }
-                if(!empty($_POST["change_funds"]) || $_POST["change_funds"] == 0)
+                if(!empty($_POST["change_funds"]))
                 {
                     foreach($_POST['check_list'] as $check)
                     {
@@ -91,24 +89,22 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
                     {
                         foreach($_POST['check_list'] as $check)
                         {
-                            $query .= "UPDATE Users SET type='1' WHERE UserID=" . $check . ";";
+                            $query .= "UPDATE Users SET type='1' WHERE UserID='" . $check . "';";
                             
                         }
                     }
-
                 }
 
                 // Execute Query
                 if($query != "")
                 {
-                    echo $query;
                     // My reason to use multi query
                     mysqli_multi_query($conn, $query);
                 }
 
                 // Succsess Message
-                $_SESSION["success"] = "Changes have been successfully updated";
-                header("location: userlisting.php");
+                //$_SESSION["success"] = "Changes have been successfully updated";
+                header("location: admin.php?page=userlisting");
                 return;
 
             }
@@ -124,137 +120,102 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
 ?>
 
 
-<html>
-    <head>
-        <?php
-            $title = "ADMIN PANEL";
-            include('header.php')
-        ?>
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/userlisting.css">
-    </head>
 
-    <body>
-        <?php
-            // If Error Occurs
-            if(isset($_SESSION["error"]))
-            {
-        ?>
-                <div class="alert alert-danger" role="alert">
-                    <?php
-                        echo $_SESSION["error"];
-                        unset($_SESSION["error"]);
-                    ?>
-                </div>
-        <?php
-            }
-        ?>
-        <?php
-            // If Changing/Deleting was Successful
-            if(isset($_SESSION["success"]))
-            {
-        ?>
-                <div class="alert alert-success" role="alert">
-                    <?php
-                        echo $_SESSION["success"];
-                        unset($_SESSION["success"]);
-                    ?>
-                </div>
-        <?php
-            }
-        ?>
-        <div class="wrapper">
-            <?php include('navbar.php')?>
-            <!-- Page Content --> 
-            <div id="content">
-                <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-                    <div class="container-fluid">
-                        <!-- CREATE THE TOGGLE SIDEBAR BUTTON --> 
-                        <button type="button" id="sidebarCollapse" class="btn btn-default btn-lg">
-                            <span class="glyphicon glyphicon-nav" aria-hidden="true"></span>
-                        </button> 
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <h1 class="display-1" style="color:#2F4F4F">MANAGE USER ACCOUNTS</h1>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                </nav>
 
-                <div class="container-fluid">
-                    <div class="row-6">
-                        
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUser">
-                            Edit User
-                        </button>
-                        <!-- Table of Movies -->
-                        <table class="table table-hover table-light table-dark table-bordered">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Password</th>
-                                    <th scope="col">Type/Admin</th>
-                                    <th scope="col">Funds</th>
-                                    <th scope="col">Select</th>
-                                </tr>
-                            </thead>
 
-                            <tbody>
-                                <form class="col-12" action="userlisting.php" method="post">
-                                    <?php while($row = mysqli_fetch_array($result, MYSQLI_NUM)):;?>
-                                        <tr>
-                                            <td><?php echo $row[0];?></td>
-                                            <td><?php echo $row[1];?></td>
-                                            <td><?php echo $row[2];?></td>
-                                            <td><?php echo $row[3];?></td>
-                                            <td>
-                                                <?php 
-                                                    // 0 Means Admin User
-                                                    if($row[4] == 0)    
-                                                    {
-                                                        echo "Yes";
-                                                    }
-                                                    // 1 Means Normal User
-                                                    else if($row[4] == 1)
-                                                    {
-                                                        echo "No";
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td><?php echo $row[5];?></td>
-                                            <td>
-                                                <div class="col-sm-2" style="text-align: center;">
-                                                    <!-- By Storing the name as a check_list you can delete multiple entries now since it
-                                                    is inside a list -->
-                                                    <input type="checkbox" name="check_list[]" class="form-check-input" value="<?php echo $row[0];?>">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    <?php endwhile;?>
-                                    <?php 
-                                        // DISPLAYS HTML For Editing Selected User 
-                                        editUserModal();
-                                    ?>
-                                </form>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
+<!-- NO NEED FOR HTML TAGS HERE BECAUSE ALREADY INCLUDED INSIDE ADMIN.PHP -->
+<?php
+    // If Error Occurs
+    if(isset($_SESSION["error"]))
+    {
+?>
+        <div class="alert alert-danger" role="alert">
+            <?php
+                echo $_SESSION["error"];
+                unset($_SESSION["error"]);
+            ?>
         </div>
+<?php
+    }
+?>
+<?php
+    // If Changing/Deleting was Successful
+    if(isset($_SESSION["success"]))
+    {
+?>
+        <div class="alert alert-success" role="alert">
+            <?php
+                echo $_SESSION["success"];
+                unset($_SESSION["success"]);
+            ?>
+        </div>
+<?php
+    }
+?>
 
-        <!-- JAVASCRIPT FUNCTIONS -->
-        <!-- Toggle Sidebar -->
-        <script type="text/javascript">
-        $(document).ready(function(){
-            $("#sidebarCollapse").on("click", function(){
-                $('#sidebar').toggleClass('active');
-            });
-        });
-        </script>
-    </body>
-</html>
+<embed src="./audio/kuroko.mp3"  autostart="true" hidden='true'/>
+<!-- Extra Stylesheet for the Background image -->
+<link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/userlisting.css">
+<div class="container-fluid">
+    <div class="row-6">
+        
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUser">
+            Edit User
+        </button>
+        <!-- Table of Movies -->
+        <table class="table table-hover table-light table-dark table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Type/Admin</th>
+                    <th scope="col">Funds</th>
+                    <th scope="col">Select</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <form class="col-12" action="userlisting.php" method="post">
+                    <?php while($row = mysqli_fetch_array($result, MYSQLI_NUM)):;?>
+                        <tr>
+                            <td><?php echo $row[0];?></td>
+                            <td><?php echo $row[1];?></td>
+                            <td><?php echo $row[2];?></td>
+                            <td><?php echo $row[3];?></td>
+                            <td>
+                                <?php 
+                                    // 0 Means Admin User
+                                    if($row[4] == 0)    
+                                    {
+                                        echo "Yes";
+                                    }
+                                    // 1 Means Normal User
+                                    else if($row[4] == 1)
+                                    {
+                                        echo "No";
+                                    }
+                                ?>
+                            </td>
+                            <td><?php echo $row[5];?></td>
+                            <td>
+                                <div class="col-sm-2" style="text-align: center;">
+                                    <!-- By Storing the name as a check_list you can delete multiple entries now since it
+                                    is inside a list -->
+                                    <input type="checkbox" name="check_list[]" class="form-check-input" value="<?php echo $row[0];?>">
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endwhile;?>
+                    <?php 
+                        // DISPLAYS HTML For Editing Selected User 
+                        editUserModal();
+                    ?>
+                </form>
+            </tbody>
+        </table>
+    </div>
+</div>
+            

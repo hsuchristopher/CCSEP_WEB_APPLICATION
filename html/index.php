@@ -4,7 +4,6 @@ Date: Wednesday 26th September 2018
 Purpose: CCSEP Assignment 2018, the homepage given when the web application starts
 -->
 
-<!DOCTYPE html>
 <?php
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
@@ -18,7 +17,7 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
     <head>
         <embed src="./audio/ora.mp3"  autostart="true" hidden='true'/>
         <?php
-            $title = "WHAT ARE YOU BUYING";
+            $title = "Welcome";
             include('header.php')
         ?>
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
@@ -40,7 +39,7 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
             }
         ?>
         <div class="wrapper">
-            <?php include('navbar.php')?>
+            <?php include('navbar.php');?>
             <!-- Page Content --> 
             <div id="content">
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
@@ -51,6 +50,9 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                         </button>
                     </div>
                 </nav>
+                <?php  
+                    include("$page");
+                ?>
             </div>
         </div>
 

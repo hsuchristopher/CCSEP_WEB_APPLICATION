@@ -36,32 +36,55 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                 // Now see if the user is allowed to log in
                 if($user !== "" && $pass !== "")
                 {
+
+                    /* Prepared Statement before I purposely broke the code */
                     // Retrieve the SQL Query
-                    $sql = "SELECT Password FROM Users WHERE Username=? AND Password=?";
+                    //$sql = "SELECT Password FROM Users WHERE Username=? AND Password=?";
 
                     // Execute Prepared Statement in function
-                    $count = executePreparedLogin($user, $pass, $sql, $conn);
+                    //$count = executePreparedLogin($user, $pass, $sql, $conn);
+
+
+                    /* This is where the Blind SQL Injection will be */
+                    $query = "SELECT Username FROM Users WHERE Username='$user'";
+                    $result = mysqli_query($conn, $query);
+                    $count = mysqli_num_rows($result); 
 
                     if($count == 0)     // Invalid User
                     {
                         // Error Message using Flash Variable
-                        $_SESSION["error"] = "Incorrect Username/Password";
+                        $_SESSION["error"] = "Incorrect Username";
                         header("Location: login.php");
                         return;
                     }
                     else if($count > 0)     // Valid Users
                     {
-                        // CREATE SESSION VARIABLES
-                        updateSessionCookie($conn, $user);
+                        // Now check if the given Username matches the password
+                        $query = "SELECT Password FROM Users WHERE Password='$pass' AND Username='$user'";
+                        $result = mysqli_query($conn, $query);
+                        $count = mysqli_num_rows($result); 
+                        
+                        if($count != 1)
+                        {
+                            // Error Message using Flash Variable
+                            $_SESSION["error"] = "Incorrect Password";
+                            header("Location: login.php");
+                            return;
+                        }
+                        else if($count == 1)    // Returns 1 row
+                        {
+                            // CREATE SESSION VARIABLES
+                            updateSessionCookie($conn, $user);
 
-                        // Allows the welcome message to be only shown upon login and never again
-                        $query = "SELECT username FROM Users WHERE username=?";
-                        $name = getRowValue($conn, $query, $user);
-                        $_SESSION["welcome_message"] = "Welcome {$name}!";
+                            // Allows the welcome message to be only shown upon login and never again
+                            $query = "SELECT username FROM Users WHERE username=?";
+                            $name = getRowValue($conn, $query, $user);
+                            $_SESSION["welcome_message"] = "Welcome {$name}!";
 
 
-                        header('Location: index.php');
-                        return;
+                            header('Location: index.php');
+                            return;
+                        }
                     }
                 }
             }
@@ -78,6 +101,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <embed src="./audio/tg1.mp3"  autostart="true" hidden='true'/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Login</title>
@@ -148,7 +172,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                                     <input name="username" type="text" class="form-control" placeholder="Username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input name="password" type="password" class="form-control" placeholder="Password" required>
+                                    <input name="password" type="password" class="form-control" placeholder="Password">
                                 </div>
                                 <!-- Login Button Icon -->
                                 <button type="submit" class="btn" id="loginbtn"><i class="fas fa-sign-in-alt"></i>Login</button>
