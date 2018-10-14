@@ -1,14 +1,15 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, Signup form to add users
+AUTHOR: Christopher Chang
+DATE: Sunday 14th of October 2018
+DEPENDENCIES: none
+PURPOSE: Signup page for any new users to create normal user accounts. 
+         NOTE: This page, was not designed to be vulnerable, this page
+         uses prepared statements so it is not susceptible to SQL injection
 -->
-
 <?php
     /* NOTE: The multiple returns used in this php code is standard used to
              reload the php code when an error occurs because you do not want
              the webpage to continue on loading the rest of the page */
-
     include("database_con.php");
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
@@ -52,7 +53,6 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                         return;
                     }
 
-
                     // Check if Username already exists
                     $query = "SELECT username FROM Users WHERE username=?";
                     $num_rows = genericPreparedOne($username, $conn, $query);
@@ -63,7 +63,6 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                         /* The returns are used to reload the php code */
                         return;
                     }
-
                 }
                 else    // Passwords do not match
                 {
@@ -72,14 +71,10 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                     /* The returns are used to reload the php code */
                     return;
                 }
-
-
                 // Hash the Password with md5
                 $password = md5($password);
-
                 /* If reached here then User can successfully sign up */
                 registerRegularUser($email, $username, $password, $conn);
-
                 header('Location: success.php');
                 return;
 
@@ -93,6 +88,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
     }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -116,8 +112,6 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
         <link rel="stylesheet" href="./js/fontawesome-free-5.3.1-web/css/solid.css">
         <script src="./js/fontawesome-free-5.3.1-web/js/all.js"></script>
     </head>
-
-
 <body>
         <div class="wrapper">
             <!-- Sidebar -->
@@ -139,9 +133,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                         <a href="signup.php">Sign Up</a>
                     </li>
                 </ul>
-            </nav>
-
-            
+            </nav> 
             <!-- Page Content --> 
             <div id="content">
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
@@ -153,7 +145,6 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                     </div>
                 </nav>
             </div>
-            
             <!-- Spacing for Signup Form -->
             <div class="modal-dialog text-center">
                     <div class="col-sm-15 main-section">
@@ -161,7 +152,7 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                         <div class="modal-content">
                             <!-- Default Avatar -->
                             <div class="col-12 user-img">
-                                <img src="./images/liam.jpg" width="50%" height="50%">
+                                <img src="./images/yonezu.gif" width="50%" height="50%">
                             </div>
                             <!-- Username and Password Fields -->
                             <form class="col-12" action="signup.php" method="post">
@@ -196,9 +187,6 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
                             </div>
                         </div> 
                     </div>
-
-          
-
         <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& JAVASCRIPT FUNCTIONS &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">
@@ -208,27 +196,5 @@ Purpose: CCSEP Assignment 2018, Signup form to add users
             });
         });
         </script>
-
     </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <html>

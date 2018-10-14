@@ -1,11 +1,18 @@
-<!DOCTYPE html>
+<!--
+AUTHOR: Christopher Chang
+DATE: 14th of October 2018
+DEPENDENCIES: none
+PURPOSE: Home Page for a User, NOTE: This Page is still under construction and has
+         not been completed yet. But the idea for this page is to give a profile 
+         page to every single user and allow the user to upload a profile picture
+         which they can use.
+-->
 <?php
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
-
     // If user is logged in
     if($_SESSION["status"])
     {
@@ -16,11 +23,9 @@
         $_SESSION["error"] = "LOG IN FIRST YOU IDIOT!";
         return;
     }
-
 ?>
 
-
-
+<!DOCTYPE html>
 <html>
     <head>
         <?php
@@ -31,7 +36,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/profile.css">
     </head>
-
     <body>
         <div class="wrapper">
             <?php include('navbar.php')?>
@@ -63,13 +67,8 @@
                     </div>
                 </div>
             </div>
-
             <h1 class="display-6">UNDER CONSTRUCTION</h1>
-
-
         </div>        
-
-
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">

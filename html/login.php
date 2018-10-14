@@ -1,21 +1,20 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, The login page for users to log in
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: none 
+    PURPOSE: Allows Users to log in, and then start their session. This
+             page is susceptible to SQL Blind Injection. During the User
+             validation
 -->
-
 <!DOCTYPE html>
 <?php
     // Included Files
     include("database_con.php");
-
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
-
-
     // ONLY ATTEMPT TO LOGIN IF THE USER IS ALREADY NOT LOGGED IN
     if(!isset($_SESSION["status"]))
     {
@@ -48,7 +47,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                     /* This is where the Blind SQL Injection will be */
                     $query = "SELECT Username FROM Users WHERE Username='$user'";
                     $result = mysqli_query($conn, $query);
-                    $count = mysqli_num_rows($result); 
+                    $count = mysqli_num_rows($result);      
 
                     if($count == 0)     // Invalid User
                     {
@@ -95,9 +94,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
         header("location: index.php");
         return;
     }
-    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -120,8 +117,6 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
         <link rel="stylesheet" href="./js/fontawesome-free-5.3.1-web/css/solid.css">
         <script src="./js/fontawesome-free-5.3.1-web/js/all.js"></script>
     </head>
-
-
     <body>
         <div class="wrapper">
             <!-- Sidebar -->
@@ -143,8 +138,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                         <a href="signup.php">Sign Up</a>
                     </li>
                 </ul>
-            </nav>
-            
+            </nav> 
             <!-- Page Content --> 
             <div id="content">
                 <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
@@ -155,8 +149,6 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                         </button>
                     </div>
                 </nav>
-
-
                 <!-- ALL OF THIS IS FOR THE LOGIN DIALOGUE BOX -->
                  <div class="modal-dialog text-center">
                     <div class="col-sm-15 main-section">
@@ -164,7 +156,7 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                         <div class="modal-content">
                             <!-- Default Avatar -->
                             <div class="col-12 user-img">
-                                <img src="./images/jwints1.jpg" width="50%" height="50%">
+                                <img src="./images/kenshi.gif" width="50%" height="50%">
                             </div>
                             <!-- Username and Password Fields -->
                             <form class="col-12" action="login.php" method="post">
@@ -195,9 +187,6 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
                 </div>
             </div>
         </div>
-
-     
-
         <!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& JAVASCRIPT FUNCTIONS &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">
@@ -207,10 +196,5 @@ Purpose: CCSEP Assignment 2018, The login page for users to log in
             });
         });
         </script>
-
     </body>
-
-
-
-
 </html>

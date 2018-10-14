@@ -1,12 +1,14 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: userlisting.php, movielisting.php
+    PURPOSE: php functions that contains HTML for the modal windows for the admin panel
 -->
 
 <?php
     /**
-     * Pop Up Window for Deleting a Movie
+     * Pop Up Window for Deleting a Movie, User must be fill in all
+     * required fields add a movie
      */
     function addMovieModal()
     {
@@ -43,8 +45,6 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
 <?php
     }
 ?>
-
-
 
 
 <?php
@@ -84,11 +84,11 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
 ?>
 
 
-
-
 <?php
     /**
-     * Pop Up Window for Editing a User as Admin
+     * Pop Up Window for Editing a User as Admin,
+     * NOTE: There is a slight bug in this function for when a User wants to set the funds of any user to
+     * zero, they cannot do this because of the php thinking that zero means false not the number
      */
     function editUserModal()
     {
@@ -123,7 +123,6 @@ Purpose: CCSEP Assignment 2018, Modal forms for Admin Users to add/remove movies
                             </label>
                         </div>
                     </div>
-
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>

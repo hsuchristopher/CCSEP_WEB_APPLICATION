@@ -1,5 +1,14 @@
+<!--
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: none  
+    PURPOSE: Provides a template on how the admin panel should look like, admins will have access to
+             userlisting.php and movielisting.php which will use this page and include themselves into it.
+             This is used so you can use php file include to dynamically load the webpage. also making it
+             vulnerable to PHP File Include exploit.
+-->
 <?php 
-	include("database_con.php");
+    include("database_con.php");
 
 	// Only call start session if there is not a session already
 	if(session_status() == PHP_SESSION_NONE)
@@ -17,7 +26,6 @@
         $query = "SELECT * FROM Movies WHERE MovieID=$select";
         $result = mysqli_query($conn, $query);
 
-
         $purchased = false;
 
         $query = "SELECT * FROM Purchases WHERE MovieID = $select AND UserID = ".$_SESSION['user_id'];
@@ -31,20 +39,16 @@
         {
             $purchased = true;            
         }
-
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-
             // If user chooses to purchase the movie
             if(isset($_POST['purchase']) && !$purchased)
             {
-                $curBal = $_SESSION["funds"];
-                
+                $curBal = $_SESSION["funds"];       
                 while($row = mysqli_fetch_assoc($result))
                 {
                     $movie_price = $row["Price"];
                 }
-                
                 if($curBal < $movie_price)
                 {
                     // FAIL MESSAGE
@@ -52,14 +56,11 @@
                     header("location: movie.php?select=$select");
                     return;
                 }
-
                 // Deduct from User account
                 $newBalance = $curBal - $movie_price;
-
                 // Update Funds for User
                 $query = "UPDATE Users SET funds=" . $newBalance . " WHERE UserID=" . $_SESSION["user_id"];
                 mysqli_query($conn, $query);
-
 
                 // Link the Bought Movie with the UserID inside the Purchases Table
                 $query = 'INSERT INTO Purchases(MovieID, UserID) VALUES(' . $select . ', ' . $_SESSION["user_id"] . ')';
@@ -92,7 +93,6 @@
                     return;
                 }
             }
-
         }
     }
     else
@@ -103,8 +103,6 @@
         return;
     }
 ?>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -117,7 +115,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/movie.css">
     </head>
-
     <body>
         <?php
             // If Adding/Removing Fails
@@ -147,24 +144,16 @@
         <?php
             }
         ?>
-
-
         <div class="wrapper">
             <?php include('navbar.php')?>
             <!-- Page Content --> 
             <div id="content" class="container-fluid">
-                <?php include('navbarButton.php')?>
-
-                
+                <?php include('navbarButton.php')?>      
                 <div class="container">
                     <!-- Space for the Title -->
                     <div class="row">
                         <div class="col">
                             <h1 class="display-4" style="color: white;"> 
-                                <?php
-                                    
-                                    //echo $cost;
-                                ?>
                             </h1>
                         </div>
                     </div> 
@@ -173,7 +162,6 @@
                         <div class="card bg-danger m-2 border-0" style="width: 18rem;">
                             <img class="card-img-top" src="./images/Movies/<?php echo $select?>.jpg" alt="No Image Uploaded" width="100%">
                         </div>
-
                         <div class="card bg-dark m-2 border-0" style="height: 15rem; top: 10.5rem; ">
                             <div class="card-header" style="color: white;">
                                 Want to Buy this item?
@@ -191,7 +179,6 @@
                                     RayCoins
                                 </h5>
                             </div>
-
                             <!-- Purchase Button -->
                             <?php if(!$purchased){?>  
                             <form method="POST">
@@ -203,8 +190,6 @@
                                 <h4 class="m-5" style="color: #90EE90;">Purchased</h4>
                             <?php } ?>
                         </div>
-
-
                         <!-- Show the User how much money he/she has -->
                         <div class="col">
                             <div class="card bg-success text-white" style="top: 21.8rem;">
@@ -234,7 +219,6 @@
                                     <h4 class="card-title m-4" style="color: white;">Reviews:</h4>
                                     <textarea class="m-3" placeholder="Post a Comment" rows="4" cols="134" name="comment" required></textarea>
                                     <button type="submit" class="btn btn-primary m-3"name="btn_comment">Post</button>
-
                                     <div class="card-body">
                                         <table class="table table-hover table-light table-dark table-bordered">
                                             <thead class="thead-light">
@@ -269,7 +253,6 @@
                 </div>
             </div>
         </div>
-
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">
@@ -280,5 +263,4 @@
         });
         </script>
     </body>
-
 </html>

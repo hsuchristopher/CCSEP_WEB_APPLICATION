@@ -1,9 +1,17 @@
+<!--
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: Every page needs this 
+    PURPOSE: HTML for the side navigation bar. Only difference is that
+             Privilleged and non-privilleged users will have different options
+             that pop up, because only admins should have access to the admin 
+             panel to do admin stuff
+-->
 <!-- Sidebar -->
 <nav id="sidebar">
     <div class="sidebar-header">
         <h3>Funimation Knockoff!</h3>
     </div>
-
     <!-- Begin List for Side Bar -->
     <ul class="list-unstyled components">
         <p>Menu</p>
@@ -54,10 +62,10 @@
                     <a href="#adminSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admin Panel</a>
                     <ul class="collapse list-unstyled" id="adminSubMenu">
                         <li>
-                            <a href="admin.php?page=movielisting">Add/Remove Movies</a>
+                            <a href="admin.php?page=movielisting.php">Add/Remove Movies</a>
                         </li>
                         <li>
-                            <a href="admin.php?page=userlisting">Manage User Accounts</a>
+                            <a href="admin.php?page=userlisting.php">Manage User Accounts</a>
                         </li>
                     </ul>
                 </li>

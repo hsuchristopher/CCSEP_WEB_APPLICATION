@@ -1,9 +1,17 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
+AUTHOR: Christopher Chang
+DATE: Sunday 14th October 2018
+DEPENDENCIES: admin.php
+PURPOSE: CCSEP Assignment 2018, userlisting page only for admin users to see inside the admin panel.
+         privileged users are able to select users, and edit there profile, from their funds, their 
+         privilege level and modify their passwords. Admins are also have the ability to delete other 
+         users, including themselves.
+
+         admin.php is considered a dependency for this file because the purpose of this page is to allow
+         for PHP File include exploit, which can be exploited inside the GET request e.g /etc/passwd
 -->
 <?php
+     // Include relavent functions for the database and the buttons for the page
      include("database_con.php");
      include("modal_buttons.php");
 
@@ -12,7 +20,6 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
      {
          session_start();
      }
-
 
      if($_SESSION["status"])
      {
@@ -33,8 +40,6 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
                 header("location: admin.php?page=userlisting");
                 return;
             }
-
-
             /* Now You want to Ensure if either of the fields are filled in you need to 
                adjust the changes accordingly (Meaning, all the boxes don't have to be
                filled to query the server) */
@@ -94,19 +99,16 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
                         }
                     }
                 }
-
                 // Execute Query
                 if($query != "")
                 {
                     // My reason to use multi query
                     mysqli_multi_query($conn, $query);
                 }
-
                 // Succsess Message
                 //$_SESSION["success"] = "Changes have been successfully updated";
                 header("location: admin.php?page=userlisting");
                 return;
-
             }
         }
     }
@@ -118,10 +120,6 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
         return;
     }
 ?>
-
-
-
-
 
 
 <!-- NO NEED FOR HTML TAGS HERE BECAUSE ALREADY INCLUDED INSIDE ADMIN.PHP -->
@@ -153,7 +151,6 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
 <?php
     }
 ?>
-
 <embed src="./audio/kuroko.mp3"  autostart="true" hidden='true'/>
 <!-- Extra Stylesheet for the Background image -->
 <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/userlisting.css">
@@ -218,4 +215,3 @@ Purpose: CCSEP Assignment 2018, User listing so admin can manage user accounts
         </table>
     </div>
 </div>
-            

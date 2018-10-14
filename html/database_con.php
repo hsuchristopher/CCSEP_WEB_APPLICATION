@@ -1,11 +1,12 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, Database Connection File with Functions
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: All the php files
+    PURPOSE: Contains functions, that are used to connect to the database
+             execute prepared statements, and queries rows from the database
+             also, contains functions that set up session variables
 -->
-
 <?php
-
     /* ***
      * Used to connect to the mysql database, this function doesn't do any
      * user input checking
@@ -48,7 +49,6 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
         $query = "SELECT UserID FROM Users WHERE username=?";
         $_SESSION["user_id"] = getRowValue($conn, $query, $user);
     }
-
 
     /**
      * Sets Up Prepared Statement for Login and executes it,
@@ -101,7 +101,6 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
         return $row_cnt;
     }
 
-
     /**
      * Once all the initial validation checking is done for signing up a user
      * this function will be called to actually register ONLY A NORMAL USER
@@ -122,8 +121,6 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
             mysqli_stmt_fetch($stmt);
         }
     }
-
-
 
     /**
      * This function is used for setting the global session variables in order to
@@ -152,9 +149,4 @@ Purpose: CCSEP Assignment 2018, Database Connection File with Functions
 
         return $retVal;
     }
-
-
-
-
-
 ?>

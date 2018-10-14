@@ -1,7 +1,10 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, The success page for when a user has successfully registered
+AUTHOR: Christopher Chang
+DATE: Sunday 14th of October 2018
+DEPENDENCIES: none
+PURPOSE: The Success Page for when the User successfully creates an account with
+         funimation knockoff!. This page just congratulates the user and redirects
+         them back to the index page
 -->
 <?php
     // Only call start session if there is not a session already
@@ -39,4 +42,3 @@ Purpose: CCSEP Assignment 2018, The success page for when a user has successfull
   </div>
     </div>
 </body>
-

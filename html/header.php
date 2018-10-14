@@ -1,3 +1,9 @@
+<!--
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: none
+    PURPOSE: All of the includes that bootstrap uses
+-->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><?php echo $title; ?></title>

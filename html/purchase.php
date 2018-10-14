@@ -1,3 +1,15 @@
+<!--
+AUTHOR: Christopher Chang
+DATE: 14th of October 2018
+DEPENDENCIES: none
+PURPOSE: Displays a list of movies in Bootstrap4 card format that the User can
+         go and visit their own personal page for and then purchase the movie.
+         This page allows any user (privilleged/normal) to search for a movie
+         in the database and allows the user to select the movie.
+
+         This page is suseptible to Reflected XSS - See the report
+         for more information.
+-->
 <!DOCTYPE html>
 <?php
     include("database_con.php");
@@ -17,12 +29,12 @@
         if(isset($_GET['search']))
         {
             $search = $_GET['search'];
-            $query = "SELECT * FROM Movies WHERE Name LIKE '%$search%'";
+            $query = "SELECT * FROM Movies WHERE Name LIKE '%$search%' ORDER BY Name";
         }
         else
         {
             // Get all the Movie Names
-            $query = "SELECT * FROM Movies";
+            $query = "SELECT * FROM Movies ORDER BY Name";
         }
         $result = mysqli_query($conn, $query);
     }
@@ -35,10 +47,6 @@
     }
     
 ?>
-
-
-
-
 <html>
     <head>
         <?php
@@ -62,12 +70,12 @@
                         </button>
                         <div class="container">
                             <div class="row justify-content-between">
-                                
                                 <div class="col">
                                     <?php if($search == NULL)
                                     {
                                         echo '<h1 class="display-4" style="color:white">BUY MOVIES</h1>';
-                                    }else
+                                    }
+                                    else
                                     {
                                         echo "<h1 class=\"display-4\" style=\"color:white\">Search: $search</h1>";
                                     }?>
@@ -88,20 +96,16 @@
                 </nav>
                 <div class="container-fluid">
                     <div class="row justify-content-center">
-                    
                     <?php
                         while($row = mysqli_fetch_assoc($result))
                         {
                     ?>
-                            <div class="card bg-danger m-2 border-0" style="width: 18rem;" onmouseover="cardHover(this)" onmouseout="cardUnHover(this)" onclick="window.location.href='movie.php?select=<?php echo $row['MovieID']?>'">
+                            <div class="card bg-danger m-2 border-0" style="width: 18rem; cursor:pointer" onmouseover="cardHover(this)" onmouseout="cardUnHover(this)" onclick="window.location.href='movie.php?select=<?php echo $row['MovieID']?>'">
                                 <img class="card-img-top" src="./images/Movies/<?php echo $row['MovieID']?>.jpg" alt="No Image Uploaded">
-                                <div class="card-cover">
-                                    
-                                </div>
+                                <div class="card-cover"></div>
                                 <div class="card-name pt-2 pb-2">
                                     <label class="m-0"><?php echo $row['Name'] ?></label>
                                 </div>
-
                             </div>
                     <?php
                         }
@@ -110,17 +114,6 @@
                 </div>
             </div>
         </div>        
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->
@@ -131,6 +124,8 @@
             });
         });
 
+
+        // Functions that allow the cards to hover and display the movie name
         function cardHover(card){
             $($(card).children(".card-cover")[0]).css("opacity", "0.8");
             $($(card).children(".card-name")[0]).css("opacity", "1");
@@ -140,7 +135,6 @@
             $($(card).children(".card-cover")[0]).css("opacity","0");
             $($(card).children(".card-name")[0]).css("opacity","0");
         }
-
         </script>
     </body>
 </html>

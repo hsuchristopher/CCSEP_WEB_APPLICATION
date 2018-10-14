@@ -1,4 +1,10 @@
-
+<!--
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: none  
+    PURPOSE: Allows users to add funds to their account to purchase movies.
+             This functionality updates the current user logged in funds.
+-->
 <?php
     include("database_con.php");
 
@@ -7,7 +13,6 @@
     {
         session_start();
     }
-
     // User Must be logged in in order to add funds
     if(isset($_SESSION["status"]))
     {
@@ -34,7 +39,6 @@
                 return;
             }
         }
-
         // Message to User on their current balance
         if($_SESSION["funds"] == NULL)
         {
@@ -66,7 +70,6 @@
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/addfunds.css">
     </head>
-
     <body>  
         <div class="wrapper">
             <?php include('navbar.php')?>
@@ -98,9 +101,6 @@
             </div>
         </div>
         
-
-       
-
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">
@@ -111,5 +111,4 @@
         });
         </script>
     </body>
-
 </html>

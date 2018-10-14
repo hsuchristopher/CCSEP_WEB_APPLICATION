@@ -1,26 +1,25 @@
+<!--
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: This file is dependent on userlisting.php and movielisting.php
+    PURPOSE: The main template that allows dynamic loading of the admin panel
+             functionality
+-->
 <?php
-
 	// Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
 
+    $page = "movielisting.php";               /* otherwise, include the default page */
 
-	// Checks if the User has selected one of the admin options
-	if(isset($_GET["page"]))
+    // Checks if the User has selected one of the admin options
+    if(isset($_GET["page"]))
     {
         // For php file Inclusion
-        $page = $_GET['page'];  /* gets the variable $page */
-        if (!empty($page)) 
-        {
-            include($page);     /* if $page has a value, include it */
-        }   
-        else 
-        {
-            include('admin.php');       /* otherwise, include the default page */
-        }
-    }   
+        $page = $_GET['page'];                  /* gets the variable $page */
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +32,6 @@
 	    <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
 	    <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/movielisting.css">
 	</head>
-
     <body>
         <?php
             // If Adding/Removing Fails
@@ -78,13 +76,11 @@
                 <div class="container-fluid">
                      <?php
                      	// This is where the dynamic file include happens 
-                     	include("$page.php");
+                     	include("$page");
                      ?>
                 </div>
             </div>
         </div>
-
-
 
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->

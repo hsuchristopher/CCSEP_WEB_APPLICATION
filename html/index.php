@@ -1,9 +1,11 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, the homepage given when the web application starts
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: navbar.php, navbutton.php
+    PURPOSE: Home Page, aka the default page where all users get redirected to
+             whether they just logged in or are accessing the website for the 
+             first time.
 -->
-
 <?php
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
@@ -11,7 +13,6 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
         session_start();
     }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,7 +24,6 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
         <link rel="stylesheet" type="text/css" media="screen" href="./css/MYOWNCSS/index.css">
         
     </head>
-
     <body>    
         <?php
             if(isset($_SESSION["welcome_message"]))
@@ -55,7 +55,6 @@ Purpose: CCSEP Assignment 2018, the homepage given when the web application star
                 ?>
             </div>
         </div>
-
         <!-- JAVASCRIPT FUNCTIONS -->
         <!-- Toggle Sidebar -->
         <script type="text/javascript">

@@ -1,20 +1,20 @@
 <!--
-Author: Christopher Chang
-Date: Wednesday 26th September 2018
-Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movies
+    AUTHOR: Christopher Chang
+    DATE: 14th of October 2018
+    DEPENDENCIES: admin.php
+    PURPOSE: Presents all of the movies inside the database to the admin user.
+             Admins, are allowed to add movies and delete them from this page.
+             This page is susceptible to SQL injection
 -->
-
 <?php
     include("database_con.php");
     include("modal_buttons.php");
-
 
     // Only call start session if there is not a session already
     if(session_status() == PHP_SESSION_NONE)
     {
         session_start();
     }
-
     // If user is logged in
     if($_SESSION["status"])
     {
@@ -28,15 +28,12 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
         /* When Admin adds a Movie */
         if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_btn"]))
         {
-
             $name = $_POST["movie_name"];
             $synopsis = $_POST["movie_synopsis"];
             $price = $_POST["movie_price"];
 
             // BEGIN ADDING NEW MOVIE INTO DATABASE
             $query = "INSERT INTO Movies(name, synopsis, price) VALUES('$name','$synopsis','$price')";
-
-            echo $query;
 
             // Execute the Query /Insert Into Table
             $result = mysqli_query($conn, $query);
@@ -133,4 +130,3 @@ Purpose: CCSEP Assignment 2018, Movie Listing for admin user to add/remove movie
         </tbody>
     </table>
 </div>
-                
