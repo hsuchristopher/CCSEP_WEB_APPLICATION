@@ -32,7 +32,7 @@
                         <input name="movie_synopsis" type="text" class="form-control" placeholder="Synopsis" required>
                     </div>
                     <div class="form-group">
-                        <input name="movie_price" type="number" class="form-control" placeholder="Price" required>
+                        <input name="movie_price" type="text" class="form-control" placeholder="Price" required>
                     </div>
                 </div>
                 <!-- Modal footer -->
@@ -109,7 +109,7 @@
                             <input name="change_password" type="password" class="form-control" placeholder="Change Password">
                         </div>
                         <div class="form-group">
-                            <input name="change_funds" type="number" class="form-control" placeholder="Edit Funds (Enter New Total Funds)">
+                            <input name="change_funds" type="text" class="form-control" placeholder="Edit Funds (Enter New Total Funds)">
                         </div>
                         <h5>Make Admin:</h5>
                         <div class="form-group col-1">

@@ -59,7 +59,7 @@
                     else if($count > 0)     // Valid Users
                     {
                         // Now check if the given Username matches the password
-                        $query = "SELECT Password FROM Users WHERE Password='$pass' AND Username='$user'";
+                        $query = "SELECT Password FROM Users WHERE Username='$user' AND Password='$pass'";
                         $result = mysqli_query($conn, $query);
                         $count = mysqli_num_rows($result); 
                         

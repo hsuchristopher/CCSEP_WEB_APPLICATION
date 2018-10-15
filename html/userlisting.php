@@ -37,7 +37,7 @@ PURPOSE: CCSEP Assignment 2018, userlisting page only for admin users to see ins
             if(empty($_POST["check_list"]))
             {
                 $_SESSION["error"] = "Please Select Users to Edit";
-                header("location: admin.php?page=userlisting");
+                header("location: admin.php?page=userlisting.php");
                 return;
             }
             /* Now You want to Ensure if either of the fields are filled in you need to 
@@ -56,7 +56,7 @@ PURPOSE: CCSEP Assignment 2018, userlisting page only for admin users to see ins
 
                 // Tell the User Items have been deleted
                 $_SESSION["success"] = "Users have been successfully deleted";
-                header("location: admin.php?page=userlisting");
+                header("location: admin.php?page=userlisting.php");
                 return;
             }
             // Or the Apply Changes button was selected
@@ -107,7 +107,7 @@ PURPOSE: CCSEP Assignment 2018, userlisting page only for admin users to see ins
                 }
                 // Succsess Message
                 //$_SESSION["success"] = "Changes have been successfully updated";
-                header("location: admin.php?page=userlisting");
+                header("location: admin.php?page=userlisting.php");
                 return;
             }
         }

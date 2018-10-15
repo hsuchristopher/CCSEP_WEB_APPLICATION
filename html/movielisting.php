@@ -40,7 +40,7 @@
 
             // Notify Admin that Movie was added
             $_SESSION["success"] = "Movie was Successfully Added!";
-            header("location: admin.php?page=movielisting");
+            header("location: admin.php?page=movielisting.php");
             return;
         }
         // USER WANTS TO DELETE AN ITEM
@@ -50,7 +50,7 @@
             {
                 // Print Error Message
                 $_SESSION["error"] = "You must select items to remove";
-                header("location: admin.php?page=movielisting");
+                header("location: admin.php?page=movielisting.php");
                 return;
             }
             else
@@ -66,7 +66,7 @@
                 
                 // Tell the User Items have been deleted
                 $_SESSION["success"] = "Items have been successfully deleted";
-                header("location: admin.php?page=movielisting");
+                header("location: admin.php?page=movielisting.php");
                 return;
             }
         }
